@@ -5,7 +5,6 @@ class Controller {
 	protected $_view;
 	protected $_model;
 	protected $_url;
-	protected $_users;
 
 	function __construct(){
 		$this->_view = new view();
