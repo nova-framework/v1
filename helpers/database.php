@@ -9,7 +9,6 @@ class Database extends PDO{
 			$this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} catch(PDOException $e){
 			Logger::newMessage($e);
-			customErrorMsg();
 		}
 
 	}
