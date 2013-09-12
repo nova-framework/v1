@@ -4,7 +4,7 @@ class Logger
 
    private static $print_error = false;
 
-   private static function customErrorMsg() {
+   public static function customErrorMsg() {
        echo "<p>An error occured, The error has been reported to the development team and will be addresses asap.</p>";  
        exit;
    }
