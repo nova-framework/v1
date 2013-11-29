@@ -126,7 +126,7 @@ class Bootstrap {
      * @return boolean
      */
     protected function _error($error) {
-        require_once 'core/error.php';
+        require 'core/error.php';
         $this->_controller = new Error($error);
         $this->_controller->index();
         die;

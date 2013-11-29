@@ -11,7 +11,14 @@ class Error extends Controller {
 
 	public function index(){
 		//display the error and stop
-		die($this->_error);
+		//die($this->_error);
+		
+		$data['error'] = $this->_error;
+		
+		$this->_view->rendertemplate('header',$data);
+		$this->_view->render('error/404',$data);
+		$this->_view->rendertemplate('footer',$data);
+		
 	}
 
 }

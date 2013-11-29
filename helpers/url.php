@@ -1,6 +1,6 @@
 <?php
 
-class url {
+class Url {
 
 	public static function redirect($url = null){
 		header('location: '.DIR.$url);
