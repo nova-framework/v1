@@ -1,7 +1,5 @@
 Options -Indexes
 
-ErrorDocument 403 /simple-mvc-framework/
-
 RewriteEngine On
 RewriteBase /simple-mvc-framework/
 RewriteCond %{REQUEST_FILENAME} !-d
