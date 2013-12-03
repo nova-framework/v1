@@ -7,12 +7,10 @@
  * @copyright 2012 The Authors
  */
 
-class Password {
+if (!defined('PASSWORD_DEFAULT')) {
 
-//if (!defined('PASSWORD_DEFAULT')) {
-
-    //define('PASSWORD_BCRYPT', 1);
-    //define('PASSWORD_DEFAULT', PASSWORD_BCRYPT);
+    define('PASSWORD_BCRYPT', 1);
+    define('PASSWORD_DEFAULT', PASSWORD_BCRYPT);
 
     /**
      * Hash the password using the specified algorithm
@@ -23,7 +21,7 @@ class Password {
      *
      * @return string|false The hashed password, or false on error.
      */
-    static public function password_hash($password, $algo, array $options = array()) {
+    function password_hash($password, $algo, array $options = array()) {
         if (!function_exists('crypt')) {
             trigger_error("Crypt must be loaded for password_hash to function", E_USER_WARNING);
             return null;
@@ -39,7 +37,7 @@ class Password {
         switch ($algo) {
             case PASSWORD_BCRYPT:
                 // Note that this is a C constant, but not exposed to PHP, so we don't define it here.
-                $cost = 12;
+                $cost = 10;
                 if (isset($options['cost'])) {
                     $cost = $options['cost'];
                     if ($cost < 4 || $cost > 31) {
@@ -151,7 +149,7 @@ class Password {
      *
      * @return array The array of information about the hash.
      */
-    static public function password_get_info($hash) {
+    function password_get_info($hash) {
         $return = array(
             'algo' => 0,
             'algoName' => 'unknown',
@@ -177,14 +175,14 @@ class Password {
      *
      * @return boolean True if the password needs to be rehashed.
      */
-    static public function password_needs_rehash($hash, $algo, array $options = array()) {
+    function password_needs_rehash($hash, $algo, array $options = array()) {
         $info = password_get_info($hash);
         if ($info['algo'] != $algo) {
             return true;
         }
         switch ($algo) {
             case PASSWORD_BCRYPT:
-                $cost = isset($options['cost']) ? $options['cost'] : 12;
+                $cost = isset($options['cost']) ? $options['cost'] : 10;
                 if ($cost != $info['options']['cost']) {
                     return true;
                 }
@@ -201,7 +199,7 @@ class Password {
      *
      * @return boolean If the password matches the hash
      */
-    static public function password_verify($password, $hash) {
+    function password_verify($password, $hash) {
         if (!function_exists('crypt')) {
             trigger_error("Crypt must be loaded for password_verify to function", E_USER_WARNING);
             return false;
@@ -218,6 +216,4 @@ class Password {
 
         return $status === 0;
     }
-//}
-
 }
