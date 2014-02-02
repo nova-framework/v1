@@ -1,4 +1,4 @@
-<?php
+<?php   
 /**
  * A Compatibility library with PHP 5.5's simplified password hashing API.
  *
@@ -7,10 +7,8 @@
  * @copyright 2012 The Authors
  */
 
-if (!defined('PASSWORD_DEFAULT')) {
+class Password {
 
-    define('PASSWORD_BCRYPT', 1);
-    define('PASSWORD_DEFAULT', PASSWORD_BCRYPT);
 
     /**
      * Hash the password using the specified algorithm
@@ -21,7 +19,7 @@ if (!defined('PASSWORD_DEFAULT')) {
      *
      * @return string|false The hashed password, or false on error.
      */
-    function password_hash($password, $algo, array $options = array()) {
+    static public function password_hash($password, $algo, array $options = array()) {
         if (!function_exists('crypt')) {
             trigger_error("Crypt must be loaded for password_hash to function", E_USER_WARNING);
             return null;
@@ -37,7 +35,7 @@ if (!defined('PASSWORD_DEFAULT')) {
         switch ($algo) {
             case PASSWORD_BCRYPT:
                 // Note that this is a C constant, but not exposed to PHP, so we don't define it here.
-                $cost = 10;
+                $cost = 12;
                 if (isset($options['cost'])) {
                     $cost = $options['cost'];
                     if ($cost < 4 || $cost > 31) {
@@ -149,7 +147,7 @@ if (!defined('PASSWORD_DEFAULT')) {
      *
      * @return array The array of information about the hash.
      */
-    function password_get_info($hash) {
+    static public function password_get_info($hash) {
         $return = array(
             'algo' => 0,
             'algoName' => 'unknown',
@@ -175,14 +173,14 @@ if (!defined('PASSWORD_DEFAULT')) {
      *
      * @return boolean True if the password needs to be rehashed.
      */
-    function password_needs_rehash($hash, $algo, array $options = array()) {
+    static public function password_needs_rehash($hash, $algo, array $options = array()) {
         $info = password_get_info($hash);
         if ($info['algo'] != $algo) {
             return true;
         }
         switch ($algo) {
             case PASSWORD_BCRYPT:
-                $cost = isset($options['cost']) ? $options['cost'] : 10;
+                $cost = isset($options['cost']) ? $options['cost'] : 12;
                 if ($cost != $info['options']['cost']) {
                     return true;
                 }
@@ -199,7 +197,7 @@ if (!defined('PASSWORD_DEFAULT')) {
      *
      * @return boolean If the password matches the hash
      */
-    function password_verify($password, $hash) {
+    static public function password_verify($password, $hash) {
         if (!function_exists('crypt')) {
             trigger_error("Crypt must be loaded for password_verify to function", E_USER_WARNING);
             return false;
