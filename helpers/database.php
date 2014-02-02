@@ -51,10 +51,20 @@ class Database extends PDO{
 			$fieldDetails .= "$key = :$key,";
 		}
 		$fieldDetails = rtrim($fieldDetails, ',');
+
+		$whereDetails = NULL;
+		foreach($where as $key => $value){
+			$whereDetails .= "$key = :$key,";
+		}
+		$whereDetails = rtrim($whereDetails, ',');
 	
-		$stmt = $this->prepare("UPDATE $table SET $fieldDetails WHERE $where");
+		$stmt = $this->prepare("UPDATE $table SET $fieldDetails WHERE $whereDetails");
 
 		foreach($data as $key => $value){
+			$stmt->bindValue(":$key", $value);
+		}
+
+		foreach($where as $key => $value){
 			$stmt->bindValue(":$key", $value);
 		}
 
