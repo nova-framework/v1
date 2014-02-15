@@ -74,8 +74,26 @@ class Database extends PDO{
 
 	public function delete($table, $where, $limit = 1){
 
-		return $this->exec("DELETE FROM $table WHERE $where LIMIT $limit");
+		ksort($data);
 
+		$whereDetails = NULL;
+		foreach($where as $key => $value){
+			$whereDetails .= "$key = :$key,";
+		}
+		$whereDetails = rtrim($whereDetails, ',');
+	
+		$stmt = $this->prepare("DELETE FROM $table WHERE $whereDetails LIMIT $limit");
+
+		foreach($where as $key => $value){
+			$stmt->bindValue(":$key", $value);
+		}
+
+		$stmt->execute();
+
+	}
+
+	public function emptytable($table){
+		return $this->exec("TRUNCATE TABLE $table");
 	}
 
 }
