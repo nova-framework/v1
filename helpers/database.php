@@ -92,7 +92,7 @@ class Database extends PDO{
 
 	}
 
-	public function emptytable($table){
+	public function truncate($table){
 		return $this->exec("TRUNCATE TABLE $table");
 	}
 
