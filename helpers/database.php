@@ -74,7 +74,7 @@ class Database extends PDO{
 
 	public function delete($table, $where, $limit = 1){
 
-		ksort($data);
+		ksort($where);
 
 		$whereDetails = NULL;
 		foreach($where as $key => $value){
