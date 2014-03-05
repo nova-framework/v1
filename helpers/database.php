@@ -1,7 +1,7 @@
 <?php
 
 class Database extends PDO{
-	
+
 	function __construct(){
 
 		try {
@@ -53,11 +53,17 @@ class Database extends PDO{
 		$fieldDetails = rtrim($fieldDetails, ',');
 
 		$whereDetails = NULL;
+		$i = 0;
 		foreach($where as $key => $value){
-			$whereDetails .= "$key = :$key,";
-		}
-		$whereDetails = rtrim($whereDetails, ',');
-	
+			if($i == 0){
+				$whereDetails .= "$key = :$key";
+			} else {
+				$whereDetails .= " AND $key = :$key";
+			}
+			
+		$i++;}
+		$whereDetails = ltrim($whereDetails, ' AND ');
+
 		$stmt = $this->prepare("UPDATE $table SET $fieldDetails WHERE $whereDetails");
 
 		foreach($data as $key => $value){
@@ -77,11 +83,17 @@ class Database extends PDO{
 		ksort($where);
 
 		$whereDetails = NULL;
+		$i = 0;
 		foreach($where as $key => $value){
-			$whereDetails .= "$key = :$key,";
-		}
-		$whereDetails = rtrim($whereDetails, ',');
-	
+			if($i == 0){
+				$whereDetails .= "$key = :$key";
+			} else {
+				$whereDetails .= " AND $key = :$key";
+			}
+			
+		$i++;}
+		$whereDetails = ltrim($whereDetails, ' AND ');
+
 		$stmt = $this->prepare("DELETE FROM $table WHERE $whereDetails LIMIT $limit");
 
 		foreach($where as $key => $value){
