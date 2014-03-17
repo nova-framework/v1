@@ -7,6 +7,7 @@ class Database extends PDO{
 		try {
 			parent::__construct(DB_TYPE.':host='.DB_HOST.';dbname='.DB_NAME,DB_USER,DB_PASS);
 			$this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$this->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND, "SET NAMES 'utf8'");
 		} catch(PDOException $e){
 			Logger::newMessage($e);
 			logger::customErrorMsg();
