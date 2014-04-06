@@ -22,9 +22,6 @@ define('SESSION_PREFIX','smvc_');
 //optionall create a constant for the name of the site
 define('SITETITLE','Simple MVC Framework');
 
-//include password helper
-require('helpers/password.php');
-
 function autoloadsystem($class) {
 
    $filename = DOCROOT . "/core/" . strtolower($class) . ".php";
