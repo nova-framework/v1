@@ -13,6 +13,7 @@ class Error extends Controller {
 		//display the error and stop
 		//die($this->_error);
 		
+		$data['title'] = '404';
 		$data['error'] = $this->_error;
 		
 		$this->_view->rendertemplate('header',$data);
