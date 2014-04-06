@@ -6,7 +6,7 @@ class Controller {
 	protected $_model;
 	protected $_url;
 
-	function __construct(){
+	public function __construct(){
 		$this->_view = new view();
 		$this->_getUrl();
 	
