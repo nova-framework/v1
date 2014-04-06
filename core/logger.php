@@ -1,6 +1,5 @@
 <?php 
-class Logger
-{
+class Logger {
 
    private static $print_error = false;
 
@@ -80,4 +79,3 @@ class Logger
       } 
    }
 }
-?>
