@@ -4,7 +4,7 @@ class Model {
 
 	protected $_db;
 	
-	function __construct(){
+	public function __construct(){
 		//connect to PDO here.
 		$this->_db = new Database();
 	}
