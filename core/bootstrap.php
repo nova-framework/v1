@@ -2,8 +2,8 @@
 
 class Bootstrap {
 
-	private $_url;
-	private $_controller = NULL;
+    private $_url;
+    private $_controller = NULL;
     private $_defaultController;
 
     public function __construct(){
