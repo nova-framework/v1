@@ -1,33 +1,42 @@
 <?php
 
-class Controller {
+class Controller extends Bootstrap {
 
 	protected $_view;
-	protected $_model;
-	protected $_url;
 
 	public function __construct(){
+		parent::__construct();
 		$this->_view = new view();
-		$this->_getUrl();
-	
 	}
 
+
+	//function to load model on request
 	public function loadModel($name){
 
-		$modelpath = 'models/'.$name.'_model.php';
+		$modelpath = strtolower('models/'.$name.'.php');
 
+		//try to load and instantiate model		
 		if(file_exists($modelpath)){
+			
 			require $modelpath;
 
-			$modelName = ucwords($name).'_Model';
-			$this->_model = new $modelName();
+			//break name into sections based on a / 
+			$parts = explode('/',$name);
+
+			//use last part of array
+			$modelName = ucwords(end($parts));
+
+			//instantiate object
+			$model = new $modelName();
+
+		} else {
+			$this->_error("Model does not exist: ".$modelpath);
+			return false;
 		}
 
+		//return object to controller
+		return $model;
+
 	}
 
-	protected function _getUrl(){
-		$url = isset($_GET['url']) ? rtrim($_GET['url'], '/') : NULL;
-		$url = filter_var($url, FILTER_SANITIZE_URL);
-		$this->_url = explode('/',$url);
-	}
 }
