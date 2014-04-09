@@ -10,8 +10,6 @@ class Error extends Controller {
 	}
 
 	public function index(){
-		//display the error and stop
-		//die($this->_error);
 		
 		$data['title'] = '404';
 		$data['error'] = $this->_error;
