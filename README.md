@@ -1,3 +1,4 @@
+#Version 2 has been relased in a new [https://github.com/simple-mvc-framework/v2](Repo)
 #What is Simple MVC Framework?
 
 Simple MVC Framework is a PHP 5.3 MVC system. It's designed to be lightweight and modular, allowing developers to build better and easy to maintain code with PHP.
